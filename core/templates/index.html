@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div id="app" data-message="{{ message }}">
+    <p>[[ message ]]</p>
+    <button @click="changeMessage">Click me to change the message</button>
+    <button @click="printMessage">Click me to console.log the message</button>
+</div>
+
+<script type="module" src="{% static 'js/index.js' %}"></script>
+{% endblock content %}

@@ -17,10 +17,15 @@
     {% endfor %}
 
     <div class="grid grid-rows-subgrid gap-4 row-span-3">
-        <p class="row-start-2 text-3xl font-bold underline">[[ store.selectedUser?.uid ]]</p>
-        <p class="row-start-2 text-3xl font-bold underline">[[ store.selectedUser?.name ]]</p>
-        <p class="row-start-2 text-3xl font-bold underline">[[ store.selectedUser?.email ]]</p>
+
+        <p v-if="store.loadingUserPackages">Loading</p>
+        <div v-else v-for="userPackage in store.selectedUserPackages">
+            <p class="row-start-2 text-3xl font-bold underline">[[ userPackage.content ]]</p>
+        </div>
+
     </div>
+
+</div>
 </div>
 
 <script type="module" src="{% static 'js/index.js' %}"></script>

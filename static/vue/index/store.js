@@ -8,7 +8,19 @@ class User {
     }
 }
 
+
+class Package {
+    constructor({ uid, name, content }) {
+        this.uid = uid;
+        this.name = name;
+        this.content = content;
+    }
+}
+
 export const store = reactive({
+    selectedUserPackages: null,
+    loadingUserPackages: false,
+
     selectedUser: null,
     setSelectedUser(element) {
         const userDataId = element.target.getAttribute("data-user-id");
@@ -21,7 +33,21 @@ export const store = reactive({
             uid: userDataId,
             name: userDataName,
             email: userDataEmail
-        }
-        );
-    }
-})
+        });
+
+        store.loadingUserPackages = true;
+        setTimeout(() => {
+            fetch(`/core/user_packages/${store.selectedUser.uid}`, { method: 'GET' })
+                .then((res) => res.json())
+                .then((json) => {
+                    store.selectedUserPackages = json.packages.map(pkg => new Package({
+                        uid: json.uid,
+                        name: pkg.name,
+                        content: pkg.content
+                    }));
+                }).finally(() => {
+                    store.loadingUserPackages = false;
+                });
+        }, 1000);
+    },
+});

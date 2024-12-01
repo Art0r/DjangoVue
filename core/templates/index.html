@@ -2,11 +2,27 @@
 {% load static %}
 
 {% block content %}
-<div id="app" data-message="{{ message }}">
-    <p>[[ message ]]</p>
-    <button @click="changeMessage">Click me to change the message</button>
-    <button @click="printMessage">Click me to console.log the message</button>
+
+<div class="container mx-auto px-4 grid grid-cols-2 grid-rows-3 grid-flow-col gap-4" id="app">
+
+    {% for user in users %}
+
+    <button type="button" data-user-id="{{ user.uid }}" data-user-name="{{ user.name }}"
+        data-user-email="{{ user.email }}" @click="store.setSelectedUser"
+        :class="{'bg-blue-200': store.selectedUser?.uid === '{{ user.uid }}', 'hover:bg-gray-100': store.selectedUser?.uid !== '{{ user.uid }}'}"
+        class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 w-6/12">
+        {{ user.name }}
+    </button>
+
+    {% endfor %}
+
+    <div class="grid grid-rows-subgrid gap-4 row-span-3">
+        <p class="row-start-2 text-3xl font-bold underline">[[ store.selectedUser?.uid ]]</p>
+        <p class="row-start-2 text-3xl font-bold underline">[[ store.selectedUser?.name ]]</p>
+        <p class="row-start-2 text-3xl font-bold underline">[[ store.selectedUser?.email ]]</p>
+    </div>
 </div>
 
 <script type="module" src="{% static 'js/index.js' %}"></script>
+
 {% endblock content %}

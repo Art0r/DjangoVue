@@ -7,7 +7,7 @@ import {
 export function fetchUserPackages() {
     setIsLoadingUserPackages()
     setTimeout(() => {
-        fetch(`/core/user_packages/${state.selectedUser.uid}`, { method: 'GET' })
+        fetch(`/user_packages/${state.selectedUser.uid}`, { method: 'GET' })
             .then((res) => res.json())
             .then((json) => {
                 setSelectedUserPackages(json.packages, json.uid);

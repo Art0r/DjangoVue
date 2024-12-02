@@ -8,8 +8,8 @@
     {% for user in users %}
 
     <button type="button" data-user-id="{{ user.uid }}" data-user-name="{{ user.name }}"
-        data-user-email="{{ user.email }}" @click="store.setSelectedUser"
-        :class="{'bg-blue-200': store.selectedUser?.uid === '{{ user.uid }}', 'hover:bg-gray-100': store.selectedUser?.uid !== '{{ user.uid }}'}"
+        data-user-email="{{ user.email }}" @click="setSelectedUser"
+        :class="{'bg-blue-200': getSelectedUser()?.uid === '{{ user.uid }}', 'hover:bg-gray-100': getSelectedUser()?.uid !== '{{ user.uid }}'}"
         class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 w-6/12">
         {{ user.name }}
     </button>
@@ -18,8 +18,8 @@
 
     <div class="grid grid-rows-subgrid gap-4 row-span-3">
 
-        <p v-if="store.loadingUserPackages">Loading</p>
-        <div v-else v-for="userPackage in store.selectedUserPackages">
+        <p v-if="getLoadingUserPackages()">Loading</p>
+        <div v-else v-for="userPackage in getSelectedUserPackages()">
             <p class="row-start-2 text-3xl font-bold underline">[[ userPackage.content ]]</p>
         </div>
 

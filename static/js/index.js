@@ -1,11 +1,15 @@
 import { createApp, ref, watch, onMounted } from '../libs/vue.esm-browser.js';
-import { store } from '../vue/index/store.js';
+import { getLoadingUserPackages, getSelectedUser, getSelectedUserPackages } from '../vue/index/getters.js';
+import { setSelectedUser } from '../vue/index/setters.js';
 
 createApp({
     delimiters: ['[[', ']]'],
     setup() {
         return {
-            store,
+            getLoadingUserPackages,
+            getSelectedUser,
+            getSelectedUserPackages,
+            setSelectedUser
         }
     }
 }).mount('#app');
